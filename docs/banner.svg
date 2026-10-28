@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-label="Code and No Code Solutions">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="48%" r="45%">
+      <stop offset="0" stop-color="#5d6dff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#020308" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pane" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16206b" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#16206b" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="crystal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9a86ff"/>
+      <stop offset="1" stop-color="#5d6dff"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="300" fill="#020308"/>
+  <rect width="1200" height="300" fill="url(#halo)"/>
+  <g stroke="#5d6dff" stroke-opacity="0.35" stroke-width="1">
+    <path d="M0 240H1200M0 262H1200M0 288H1200"/>
+    <path d="M600 222L600 300M520 222L380 300M680 222L820 300M440 222L160 300M760 222L1040 300"/>
+  </g>
+  <g fill="#f2f1ea">
+    <circle cx="90" cy="60" r="1.2"/><circle cx="210" cy="140" r="1"/><circle cx="330" cy="40" r="1.4"/>
+    <circle cx="880" cy="70" r="1.1"/><circle cx="1010" cy="150" r="1.3"/><circle cx="1130" cy="50" r="1"/>
+  </g>
+  <g transform="translate(600 130)">
+    <rect x="-62" y="-92" width="124" height="184" fill="url(#pane)"/>
+    <rect x="-62" y="-92" width="124" height="184" fill="none" stroke="#f2f1ea" stroke-width="6" filter="url(#glow)" opacity="0.8"/>
+    <rect x="-62" y="-92" width="124" height="184" fill="none" stroke="#f2f1ea" stroke-width="2.5"/>
+    <ellipse rx="105" ry="22" fill="none" stroke="#f2f1ea" stroke-opacity="0.8" stroke-width="1.4" transform="rotate(-8)"/>
+    <ellipse rx="20" ry="98" fill="none" stroke="#7b8cff" stroke-opacity="0.5" stroke-width="1" transform="rotate(25)"/>
+    <polygon points="0,-40 35,-18 35,20 0,42 -35,20 -35,-18" fill="url(#crystal)"/>
+    <polygon points="0,-40 35,-18 0,0 -35,-18" fill="#c9bcff" fill-opacity="0.45"/>
+  </g>
+  <text x="60" y="215" fill="#f2f1ea" font-family="Helvetica, Arial, sans-serif" font-size="46" font-weight="600" letter-spacing="-1">Code and No Code</text>
+  <text x="62" y="250" fill="#8b90a1" font-family="Helvetica, Arial, sans-serif" font-size="26">Solutions</text>
+  <text x="1140" y="215" fill="#7b8cff" font-family="Menlo, Consolas, monospace" font-size="15" letter-spacing="4" text-anchor="end">A UNIT OF MERCURY SOLS</text>
+  <text x="1140" y="245" fill="#8b90a1" font-family="Menlo, Consolas, monospace" font-size="13" letter-spacing="3" text-anchor="end">WEB · MOBILE · AI · NO CODE</text>
+</svg>
