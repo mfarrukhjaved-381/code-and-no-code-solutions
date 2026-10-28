@@ -34,7 +34,9 @@ export function Contact() {
         <a
           href={`mailto:${contact.email}`}
           data-testid="contact-email-link"
-          className="font-display text-3xl tracking-tight underline decoration-accent-cool/50 underline-offset-8 transition-colors hover:decoration-ink md:text-5xl"
+          // wrap-anywhere: an email address has no spaces, so at phone widths it would otherwise
+          // refuse to wrap and widen the whole page (measured: 420 px on a 390 px screen).
+          className="font-display text-2xl tracking-tight wrap-anywhere underline decoration-accent-cool/50 underline-offset-8 transition-colors hover:decoration-ink sm:text-3xl md:text-5xl"
         >
           {contact.email}
         </a>

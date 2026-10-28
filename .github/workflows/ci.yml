@@ -24,5 +24,9 @@ jobs:
       # Includes the type check and the prerender.
       - run: npm run build
       - run: npm run check:budget
+      # Mobile Lighthouse against the production build: LCP 2.5 s, CLS 0.1, TBT 200 ms floors.
+      # Runners have no GPU, so this measures the HTML experience; the 3D is skipped on
+      # software WebGL by design (src/app/capabilities.ts).
+      - run: npx --yes @lhci/cli@0.15.1 autorun
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e

@@ -10,7 +10,7 @@ export function Work() {
         id="work-heading"
         eyebrow="03 / Work"
         title="Products we have shipped"
-        intro="Live platforms in production, from enterprise event systems to B2B marketplaces."
+        intro="Live platforms in production, from enterprise event systems to B2B marketplaces. Every one was delivered by the whole team, from architecture to launch."
       />
       <ul className="mt-16 grid gap-6 lg:grid-cols-2">
         {projects.map((project, index) => (
