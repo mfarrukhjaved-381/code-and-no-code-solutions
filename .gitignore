@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output (client build, server build used only for prerendering)
+dist/
+dist-ssr/
+
+# Environment files: only the example is shared
+.env
+.env.*
+!.env.example
+
+# Test and coverage output
+coverage/
+test-results/
+playwright-report/
+blob-report/
+.lighthouseci/
+
+# Editor and OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.log
+
+# Local process files: kept on the developer machine, not published (public repository)
+.claude/
+CLAUDE.md
+aidlc-docs/

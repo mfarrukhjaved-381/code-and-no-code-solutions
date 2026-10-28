@@ -1,0 +1,198 @@
+@import 'tailwindcss';
+
+/*
+ * Display font, self-hosted (one 22 KB Latin file, preloaded in index.html).
+ * `optional` instead of `swap`: if the font is not ready almost immediately the fallback is kept
+ * for this page view, so the heading never re-flows after first paint (zero layout shift). With
+ * the preload it is ready on all but the slowest connections, and cached for the next visit.
+ */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk-latin-wght.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: optional;
+}
+
+/*
+ * Design tokens. Palette: near-black space, warm off-white text, periwinkle and violet light,
+ * gold reserved for the team lead. Layering, back to front: backdrop (-z-20), 3D canvas (-z-10),
+ * content (auto), fixed navigation (z-30), progress bar (z-40), cursor and skip link (z-50).
+ */
+@theme {
+  --color-space: #020308;
+  --color-space-raised: #07090f;
+  --color-line: #1a1e2c;
+  --color-ink: #f2f1ea;
+  --color-ink-muted: #8b90a1;
+  --color-accent: #9a86ff;
+  --color-accent-cool: #7b8cff;
+  --color-gold: #f2c35b;
+
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    ui-monospace, 'SF Mono', 'JetBrains Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-focus-in: focus-in 1.4s var(--ease-out-expo) both;
+  --animate-fade-up: fade-up 1s var(--ease-out-expo) both;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-equalizer: equalizer 0.9s ease-in-out infinite alternate;
+
+  /* Starts blurred but fully opaque, so the heading still paints on the first frame (LCP). */
+  @keyframes focus-in {
+    from {
+      filter: blur(14px);
+      transform: translateY(0.12em);
+      letter-spacing: 0.02em;
+    }
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes equalizer {
+    from {
+      transform: scaleY(0.3);
+    }
+  }
+}
+
+/* Small uppercase monospace labels, the HUD voice of the interface. */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* The giant hero type. */
+@utility text-hero {
+  font-size: clamp(3.4rem, 10.5vw, 10.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+}
+
+/* Outlined display text for the marquee. */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-ink-muted);
+}
+
+/*
+ * HUD corner brackets drawn with gradients, so any panel gets them without extra elements.
+ * Override `--hud` to recolour (the lead's card uses gold).
+ */
+@utility hud-frame {
+  --hud: var(--color-accent-cool);
+  background-image:
+    linear-gradient(var(--hud), var(--hud)), linear-gradient(var(--hud), var(--hud)),
+    linear-gradient(var(--hud), var(--hud)), linear-gradient(var(--hud), var(--hud)),
+    linear-gradient(var(--hud), var(--hud)), linear-gradient(var(--hud), var(--hud)),
+    linear-gradient(var(--hud), var(--hud)), linear-gradient(var(--hud), var(--hud));
+  background-repeat: no-repeat;
+  background-size:
+    16px 1px,
+    1px 16px,
+    16px 1px,
+    1px 16px,
+    16px 1px,
+    1px 16px,
+    16px 1px,
+    1px 16px;
+  background-position:
+    top left,
+    top left,
+    top right,
+    top right,
+    bottom left,
+    bottom left,
+    bottom right,
+    bottom right;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-space);
+    color: var(--color-ink);
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-cool);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-cool);
+    color: var(--color-space);
+  }
+
+  /*
+   * Scroll reveal. Hidden only once `reveal-ready` is set by JavaScript, so content is always
+   * visible in the prerendered HTML and without scripts. See hooks/useRevealOnScroll.
+   */
+  .reveal-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(32px);
+    transition:
+      opacity 1s var(--ease-out-expo),
+      transform 1s var(--ease-out-expo);
+  }
+  .reveal-ready [data-reveal][data-revealed] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer components {
+  /*
+   * Static deep-space backdrop. It is the whole background when the 3D world does not render
+   * (no WebGL, reduced motion, a 3D failure) and the base the canvas fades in over. Painted on
+   * a fixed element rather than `background-attachment: fixed`, which repaints on every scroll.
+   */
+  .space-backdrop {
+    background-image:
+      radial-gradient(ellipse 50% 40% at 50% 45%, rgb(93 109 255 / 0.16), transparent),
+      radial-gradient(ellipse 60% 30% at 50% 100%, rgb(93 109 255 / 0.1), transparent),
+      radial-gradient(1px 1px at 20% 30%, rgb(242 241 234 / 0.6), transparent),
+      radial-gradient(1px 1px at 65% 70%, rgb(242 241 234 / 0.5), transparent),
+      radial-gradient(1px 1px at 85% 25%, rgb(242 241 234 / 0.4), transparent),
+      radial-gradient(1px 1px at 40% 85%, rgb(242 241 234 / 0.5), transparent),
+      radial-gradient(1px 1px at 10% 60%, rgb(242 241 234 / 0.4), transparent);
+  }
+
+  /* Reading progress line driven by the scroll position in CSS alone; hidden where unsupported. */
+  .scroll-progress {
+    display: none;
+  }
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      display: block;
+      transform-origin: left;
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+  @keyframes grow-x {
+    from {
+      transform: scaleX(0);
+    }
+  }
+}
